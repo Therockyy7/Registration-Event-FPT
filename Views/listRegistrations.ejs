@@ -1,0 +1,66 @@
+<%- include('./partials/header.ejs') %>
+
+<div class="vw-100 p-5 bg-secondary vh-100 d-flex flex-column ">
+
+    <div class="pb-5 d-flex flex-column justify-content-center align-items-center">
+        <h1>View Registered Event List</h1>
+        <a class="nav-link text-decoration-none bg-danger p-3 pt-1 pb-1 rounded-2 text-light"
+            href="/gotoSearchRegistrationPage">Search Registrations by Date</a>
+        <a class="nav-link text-decoration-none bg-info p-3 pt-1 pb-1 rounded-2 text-light mt-2"
+            href="/listRegistrations">Reset list</a>
+    </div>
+    <div>
+    
+    
+        <% if(typeof listRegistration !== 'undefined' && listRegistration) {%>
+            <table class="table  ">
+            
+            
+
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">registrationId</th>
+                    <th scope="col">studentId</th>
+                    <th scope="col">registrationDate</th>
+            
+                </tr>
+                </thead>
+                <tbody>
+                        <% let count=0; %>
+                        <% listRegistration.forEach(registration=> { %>
+                            <tr>
+                            <th scope="row">
+                                <%= count + 1 %>
+                            </th>
+                            <td>
+                                <%= registration._id %>
+                            </td>
+                            <td>
+                                <%= registration.studentId %>
+                            </td>
+                            <td>
+                                <%= new Date(registration.registrationDate).toLocaleString('en-GB', { timeZone: 'Asia/Ho_Chi_Minh' , hour12: false
+                                    }) %>
+                            </td>
+                            
+                            
+                            </tr>
+                            <% count++; %>
+                            
+                            
+                            <% }); %>
+                            
+                        </tbody>
+                    </table>
+        <% } else {%> 
+            <h1>
+                No students have registered yet
+                
+            </h1>
+            <% } %>
+                </div>
+
+</div>
+
+<%- include('./partials/footer.ejs') %>

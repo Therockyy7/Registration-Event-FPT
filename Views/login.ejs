@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') %>
+<div class="vw-100 bg-secondary vh-100 d-flex flex-column justify-content-center align-items-center">
+
+
+<form class="w-25 p-3 rounded-3 bg-white d-flex flex-column justify-content-center "  action="/auth/handleLogin" method="post">
+    <% if (typeof checkLogin !=='undefined' && checkLogin===false) { %>
+        <p class="text-center text-danger">Please check your username or password</p>
+        <% } 
+    %>
+    <div class="mb-3">
+        <label for="username" class="form-label">User Name</label>
+        <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+        
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <p>
+        <a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Register account</a>
+    </p>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+</div>
+
+<%- include('./partials/footer.ejs') %>

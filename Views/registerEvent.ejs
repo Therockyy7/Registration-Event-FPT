@@ -1,0 +1,153 @@
+<%- include('./partials/header.ejs') %>
+<div class="vw-100 p-5 bg-secondary vh-100 d-flex flex-column ">
+
+    <div class="pb-5 d-flex flex-column justify-content-center align-items-center">
+        <h1>Events</h1>
+        
+    </div>
+    <div>
+    
+    
+        <table class="table  ">
+          <% if(typeof statusRegister !== 'undefined' && statusRegister) {%>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong><%= statusRegister %>!</strong> .
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>      
+            </div>
+           <% } %> 
+   
+          
+          <% if(typeof eventView !== 'undefined' && eventView) {%> 
+            <script>
+              window.onload = () => {
+                const myModal = new bootstrap.Modal(document.getElementById('fullscreenModal'));
+                myModal.show();
+              };
+            </script>
+
+            <% if(typeof action !== 'undefined' && action === 'View') {%>
+              <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-fullscreen-md-down">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="fullscreenModalLabel">View Detail Event</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul class="list-group">
+                        <li class="list-group-item">description: <%= eventView.description %></li>
+                        <li class="list-group-item">date: <%= eventView.date %></li>
+                        <li class="list-group-item">location: <%= eventView.location %></li>
+                        <li class="list-group-item">capacity: <%= eventView.capacity %></li>
+                        <li class="list-group-item">Start at: <%= eventView.createdAt %></li>
+                        <li class="list-group-item">name: <%= eventView.name %></li>
+                                
+                      </ul>
+              
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <!-- <button type="button" class="btn btn-primary"
+                        onclick="document.getElementById('update-form').submit()">register</button> -->
+                      <a href="/register/<%= eventView._id %>" class="btn btn-primary">register</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>>
+
+
+            <% if(typeof action !=='undefined' && action === 'Cancel' ) {%>
+              <div class="modal fade" id="fullscreenModal" tabindex="-1" aria-labelledby="fullscreenModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-fullscreen-md-down">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="fullscreenModalLabel">View Detail Event. Are you want to cancel ?</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul class="list-group">
+                        <li class="list-group-item">description: <%= eventView.description %>
+                        </li>
+                        <li class="list-group-item">date: <%= eventView.date %>
+                        </li>
+                        <li class="list-group-item">location: <%= eventView.location %>
+                        </li>
+                        <li class="list-group-item">capacity: <%= eventView.capacity %>
+                        </li>
+                        <li class="list-group-item">Start at: <%= eventView.createdAt %>
+                        </li>
+                        <li class="list-group-item">name: <%= eventView.name %>
+                        </li>
+            
+                      </ul>
+            
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <!-- <button type="button" class="btn btn-primary"
+                                    onclick="document.getElementById('update-form').submit()">register</button> -->
+                      <a href="/event/AllEvents?cancelEvent=<%= eventView._id %>" class=" btn btn-danger mb-3">
+                        cancel    </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% } %>>
+
+          <% } %>
+
+
+         
+
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Number of registered</th>
+                <th scope="col">Event</th>
+                <th scope="col">capacity</th>
+                <th scope="col">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let count=0; %>
+                <% events.forEach(event=> { %>
+                  <tr>
+                    <th scope="row">
+                      <%= count + 1 %>
+                    </th>
+                    <td>
+                      <%= registrationObj[count].count %>
+                    </td>
+                    <td>
+                      <%= event.description %>
+                    </td>
+                    <td>
+                      <%= event.capacity %>
+                    </td>
+                    <td>
+                      <a href="/event/AllEvents?eventId=<%= event._id %>&action=View" class="btn btn-primary mb-3">
+                        View                  
+                      </a>
+                     
+                        
+                          <% if( alreadyRegisteredEventId.includes( event._id.toString() ) ) {%>
+                            <a href="/event/AllEvents?eventId=<%= event._id %>&action=Cancel" class=" btn btn-danger mb-3">
+                              cancel
+                              </a>
+                          <% } %>
+                      
+                 
+                      
+                    </td>
+                  </tr>
+                  <% count++; %>
+                <% }); %>
+          
+            </tbody>
+          </table>
+    </div>
+
+</div>
+
+<%- include('./partials/footer.ejs') %>

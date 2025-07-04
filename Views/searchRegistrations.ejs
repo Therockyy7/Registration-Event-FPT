@@ -1,0 +1,16 @@
+<%- include('./partials/header.ejs') %>
+    <form action="/handleFindRegistrationByDate" method="post">
+        <div class="mb-3">
+            <label for="startDate" class="form-label">Start date (ex: 2025-01-01)</label>
+            <input type="text" class="form-control" id="startDate" name="startDate">
+       
+        </div>
+        <div class="mb-3">
+            <label for="endDate" class="form-label">End date (ex: 2025-01-01)</label>
+            <input type="text" class="form-control" id="endDate" name="endDate">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+<%- include('./partials/footer.ejs') %>
